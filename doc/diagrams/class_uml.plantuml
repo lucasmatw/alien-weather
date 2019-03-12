@@ -1,0 +1,50 @@
+@startuml
+
+
+class WeatherBatchResult {
+    + rainyDays() :Int
+    + droughDays() :Int
+    + optimalDays() :Int
+    + day(day :Int) :Option[WeatherForecast]
+}
+
+class WeatherForecast {
+    + description :String
+    + density :Option[Int]
+}
+
+class SolarSystem {
+    simulate(days) :SolarSystem
+}
+
+class Planet {
+    + name
+    + move(days :Int)
+}
+
+class SolarPosition {
+    x :Int
+    y :Int
+}
+
+interface Orbit {
+    move(position :SolarPosition, days :Int) :SolarPosition
+}
+
+
+class CircularOrbit {
+    speed :Int
+    clockwise :Bool
+}
+
+
+Orbit <|-- CircularOrbit
+
+WeatherBatchResult -- "*" WeatherForecast
+WeatherForecast *-- SolarSystem
+Planet *-- SolarPosition
+Planet *-- Orbit
+SolarSystem --> "*" Planet
+
+
+@enduml

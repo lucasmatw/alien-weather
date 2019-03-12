@@ -1,0 +1,34 @@
+@startuml
+
+participant Client as C
+
+control WeatherService as WS
+
+
+
+entity SolarSystem as SS
+
+entity WeatherBatchResult as WBR
+
+
+C -> WS: batchForecast(numberOfDays)
+
+WS -> SS :new
+
+loop day in 0 to numberOfDays
+
+WS -> SS :simulate(day)
+SS -> WS : solarSystem
+WS -> WS: weather(solarSystem)
+
+
+end
+
+WS -> WBR :new(List[WeatherForecast])
+WS --> C :batchResult
+
+C -> WBR : rainyDaysAmount()
+WBR --> C: 50
+
+
+@enduml
